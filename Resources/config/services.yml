@@ -1,4 +1,8 @@
 services:
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
     sg_datatables.twig.extension:
         class: Sg\DatatablesBundle\Twig\DatatableTwigExtension
         public: false
@@ -32,3 +36,18 @@ services:
             - '@router'
             - '@doctrine.orm.entity_manager'
             - '@twig'
+            -
+#    Sg\DatatablesBundle\Command\:
+#        #        resource: "../src/Bundles/sg/datatablesbundle/Command/*"
+##        resource: "@SgDatatablesBundle/Command/*"
+#        resource: "../../Command/*"
+#        tag: "maker.command"
+
+
+    sg_datatables.command:
+        class: Sg\DatatablesBundle\Command\CreateDatatableCommand
+        public: true
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@kernel'
+        tags: ["maker.command"]

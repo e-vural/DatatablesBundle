@@ -67,7 +67,7 @@ class DatatableFactory
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $securityToken,
-        $translator,
+        TranslatorInterface $translator,
         RouterInterface $router,
         EntityManagerInterface $em,
         Environment $twig

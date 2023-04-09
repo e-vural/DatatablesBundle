@@ -24,4 +24,4 @@
 
 [Style](https://github.com/stwe/DatatablesBundle/blob/master/Resources/doc/style.md)
 
-[Caching](./cache.md)
+[Caching](cache.md)
