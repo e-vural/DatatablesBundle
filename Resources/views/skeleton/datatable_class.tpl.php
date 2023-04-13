@@ -2,19 +2,17 @@
 
 namespace <?= $class_namespace; ?>;
 
-use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Column\Column;
-use App\Datatables\Utils\Traits\SgDatatableTrait;
+use <?= $custom_abstract_full_path; ?>;
 
 /**
 * Class  <?= $datatable_class_name; ?>
 *
 * @package  <?= $class_namespace; ?>
 */
-class <?= $datatable_class_name; ?> extends AbstractDatatable
+class <?= $datatable_class_name; ?> extends <?= $custom_abstract_class_name; ?>
 {
 
-    use SgDatatableTrait;
 
 
     /**

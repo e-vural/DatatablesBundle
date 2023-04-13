@@ -1,30 +1,31 @@
 services:
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
+#    _defaults:
+#        autowire: true      # Automatically injects dependencies in your services.
+#        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
     sg_datatables.twig.extension:
         class: Sg\DatatablesBundle\Twig\DatatableTwigExtension
         public: false
         tags:
             - { name: twig.extension }
 
-    sg_datatables.datatable.abstract:
-        class: Sg\DatatablesBundle\Datatable\AbstractDatatable
-        abstract: true
-        arguments:
-            - '@security.authorization_checker'
-            - '@security.token_storage'
-            - '@translator'
-            - '@router'
-            - '@doctrine.orm.entity_manager'
-            - '@twig'
+#    sg_datatables.datatable.abstract:
+#        class: Sg\DatatablesBundle\Datatable\AbstractDatatable
+#        abstract: true
+#        arguments:
+#            - '@security.authorization_checker'
+#            - '@security.token_storage'
+#            - '@translator'
+#            - '@router'
+#            - '@doctrine.orm.entity_manager'
+#            - '@twig'
 
-    sg_datatables.response:
-        class: Sg\DatatablesBundle\Response\DatatableResponse
-        public: true
-        arguments:
-            - '@request_stack'
+#    sg_datatables.response:
+#        class: Sg\DatatablesBundle\Response\DatatableResponse
+#        public: true
+#        autowire: true
+#        autoconfigure: true
+#        arguments:
+#            - '@request_stack'
 
     sg_datatables.factory:
         class: Sg\DatatablesBundle\Datatable\DatatableFactory
@@ -36,18 +37,32 @@ services:
             - '@router'
             - '@doctrine.orm.entity_manager'
             - '@twig'
-            -
-#    Sg\DatatablesBundle\Command\:
-#        #        resource: "../src/Bundles/sg/datatablesbundle/Command/*"
-##        resource: "@SgDatatablesBundle/Command/*"
-#        resource: "../../Command/*"
-#        tag: "maker.command"
 
 
-    sg_datatables.command:
-        class: Sg\DatatablesBundle\Command\CreateDatatableCommand
-        public: true
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@kernel'
+    Sg\DatatablesBundle\Command\:
+        resource: "../../Command/*"
         tags: ["maker.command"]
+        autoconfigure: true
+        autowire: true
+
+
+    Sg\DatatablesBundle\Response\DatatableResponse:
+        autoconfigure: true
+        autowire: true
+
+    Sg\DatatablesBundle\Datatable\AbstractDatatable:
+        abstract: true
+        autoconfigure: true
+        autowire: true
+
+
+
+#    sg_datatables.command:
+#        class: Sg\DatatablesBundle\Command\CreateDatatableCommand
+##        public: true
+#        autoconfigure: true
+#        autowire: true
+#        arguments:
+#            - '@doctrine.orm.entity_manager'
+#            - '@kernel'
+#        tags: ["maker.command"]

@@ -131,14 +131,8 @@ class Action
     // Options
     //-------------------------------------------------
 
-    /**
-     * Configure options.
-     *
-     * @return $this
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
+    private static function resolverDefaults(){
+        return [
             'route' => null,
             'route_parameters' => null,
             'icon' => null,
@@ -152,7 +146,17 @@ class Action
             'render_if' => null,
             'start_html' => null,
             'end_html' => null,
-        ]);
+        ];
+    }
+
+    /**
+     * Configure options.
+     *
+     * @return $this
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(self::resolverDefaults());
 
         $resolver->setAllowedTypes('route', ['null', 'string']);
         $resolver->setAllowedTypes('route_parameters', ['null', 'array', 'Closure']);

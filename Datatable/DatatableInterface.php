@@ -92,7 +92,7 @@ interface DatatableInterface
      *
      * @return EntityManagerInterface
      */
-    public function getEntityManager();
+//    public function getEntityManager();
 
     /**
      * Help function to create an option array for filtering.
