@@ -300,15 +300,9 @@ abstract class AbstractColumn implements ColumnInterface
     // Options
     //-------------------------------------------------
 
-    /**
-     * @return $this
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        // 'dql' and 'data' options need no default value
-        $resolver->setDefined(['dql', 'data']);
-
-        $resolver->setDefaults([
+    //Need for assoc plugin autocomplete
+    public function resolverDefaults(){
+        return [
             'cell_type' => null,
             'class_name' => null,
             'content_padding' => null,
@@ -326,7 +320,19 @@ abstract class AbstractColumn implements ColumnInterface
             'type_of_field' => null,
             'responsive_priority' => null,
             'sent_in_response' => true,
-        ]);
+        ];
+    }
+
+    /**
+     * @return $this
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        // 'dql' and 'data' options need no default value
+        $resolver->setDefined(['dql', 'data']);
+
+        //Default options for all columns
+        $resolver->setDefaults(self::resolverDefaults());
 
         $resolver->setAllowedTypes('cell_type', ['null', 'string']);
         $resolver->setAllowedTypes('class_name', ['null', 'string']);

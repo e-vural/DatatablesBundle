@@ -126,4 +126,9 @@ interface ColumnInterface
      * @return bool
      */
     public function isEditableContentRequired(array $row);
+
+    public function resolverDefaults();
+
+
+
 }

@@ -120,6 +120,13 @@ class AttributeColumn extends AbstractColumn
     //-------------------------------------------------
     // Options
     //-------------------------------------------------
+    public function resolverDefaults()
+    {
+        return [
+            'filter' => [TextFilter::class, []],
+            'attributes' => function(){},
+        ];
+    }
 
     /**
      * @return $this
@@ -128,10 +135,7 @@ class AttributeColumn extends AbstractColumn
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefaults([
-            'filter' => [TextFilter::class, []],
-            'attributes' => null,
-        ]);
+        $resolver->setDefaults(self::resolverDefaults());
 
         $resolver->setAllowedTypes('filter', 'array');
         $resolver->setAllowedTypes('attributes', ['null', 'array', 'Closure']);

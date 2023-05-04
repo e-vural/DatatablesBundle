@@ -105,8 +105,6 @@ class CreateDatatableCommand extends AbstractMaker implements ServiceSubscriberI
         $datatableGenerator = new DatatableClassMaker();
         $datatableGenerator->generateByEntity($generator,$em,$entityClassNamespace);
 
-
-
         return Command::SUCCESS;
     }
 

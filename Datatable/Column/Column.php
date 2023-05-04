@@ -15,6 +15,7 @@ use Sg\DatatablesBundle\Datatable\Editable\EditableInterface;
 use Sg\DatatablesBundle\Datatable\Filter\TextFilter;
 use Sg\DatatablesBundle\Datatable\Helper;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Twig\Markup;
 
 class Column extends AbstractColumn
 {
@@ -22,6 +23,41 @@ class Column extends AbstractColumn
     use EditableTrait;
 
     use FilterableTrait;
+
+    protected $rowFormatter;
+    protected $rowTemplate;
+
+    /**
+     * @return mixed
+     */
+    public function getRowTemplate()
+    {
+        return $this->rowTemplate;
+    }
+
+    /**
+     * @param mixed $rowTemplate
+     */
+    public function setRowTemplate($rowTemplate): void
+    {
+        $this->rowTemplate = $rowTemplate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRowFormatter()
+    {
+        return $this->rowFormatter;
+    }
+
+    /**
+     * @param mixed $rowFormatter
+     */
+    public function setRowFormatter($rowFormatter): void
+    {
+        $this->rowFormatter = $rowFormatter;
+    }
 
     //-------------------------------------------------
     // ColumnInterface
@@ -32,13 +68,31 @@ class Column extends AbstractColumn
      */
     public function renderSingleField(array &$row)
     {
+        if($this->rowFormatter){
+            $renderFormattedRow = \call_user_func($this->rowFormatter, $row);
+        }
+
         $path = Helper::getDataPropertyPath($this->data);
 
+
+
+
         if ($this->accessor->isReadable($row, $path)) {
+
+            //TODO deneysel her row için böyle bir template yapılabilir.
+            if($this->rowTemplate && $row){
+                $content = new Markup($this->getTwig()->render($this->rowTemplate,array("value" => $this->accessor->getValue($row, $path))),"utf-8");
+                $this->accessor->setValue($row, $path,$content);
+            }
             if ($this->isEditableContentRequired($row)) {
-                $content = $this->renderTemplate($this->accessor->getValue($row, $path), $row[$this->editable->getPk()]);
+                $content = $this->renderTemplate(
+                    $this->accessor->getValue($row, $path),
+                    $row[$this->editable->getPk()]
+                );
                 $this->accessor->setValue($row, $path, $content);
             }
+
+
         }
 
         return $this;
@@ -114,6 +168,17 @@ class Column extends AbstractColumn
     // Options
     //-------------------------------------------------
 
+    //Need for assoc plugin autocomplete
+    public function resolverDefaults()
+    {
+        return [
+            "row_formatter" => null,
+            "row_template" => null,
+            'filter' => [TextFilter::class, []],
+            'editable' => null,
+        ];
+    }
+
     /**
      * @return $this
      */
@@ -121,11 +186,9 @@ class Column extends AbstractColumn
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefaults([
-            'filter' => [TextFilter::class, []],
-            'editable' => null,
-        ]);
+        $resolver->setDefaults(self::resolverDefaults());
 
+        $resolver->setAllowedTypes('row_formatter', ['null','Closure']);
         $resolver->setAllowedTypes('filter', 'array');
         $resolver->setAllowedTypes('editable', ['null', 'array']);
 
@@ -140,7 +203,7 @@ class Column extends AbstractColumn
      * Render template.
      *
      * @param string|null $data
-     * @param string      $pk
+     * @param string $pk
      * @param string|null $path
      *
      * @return mixed|string

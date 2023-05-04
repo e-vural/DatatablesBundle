@@ -71,6 +71,7 @@ class DatatableResponse
     public function setDatatable(DatatableInterface $datatable)
     {
         $val = $this->validateColumnsPositions($datatable);
+//        exit;
         if (\is_int($val)) {
             throw new Exception("DatatableResponse::setDatatable(): The Column with the index {$val} is on a not allowed position.");
         }
@@ -127,6 +128,7 @@ class DatatableResponse
             'recordsFiltered' => \count($paginator),
             'recordsTotal' => true === $countAllResults ? (int) $this->datatableQueryBuilder->getCountAllResults() : 0,
         ];
+
 
         return array_merge($outputHeader, $formatter->getOutput());
     }
@@ -202,6 +204,7 @@ class DatatableResponse
         /** @var ColumnInterface $column */
         foreach ($columns as $column) {
             $allowedPositions = $column->allowedPositions();
+//            dump($allowedPositions);
             /** @noinspection PhpUndefinedMethodInspection */
             $index = $column->getIndex();
             if (\is_array($allowedPositions)) {
@@ -216,6 +219,7 @@ class DatatableResponse
                 }
             }
         }
+
 
         return true;
     }

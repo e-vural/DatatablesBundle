@@ -62,6 +62,7 @@ class DatatableFormatter
 
             // Format custom DQL fields output ('custom.dql.name' => $row['custom']['dql']['name'] = 'value')
             foreach ($columns as $column) {
+//                dump($column);
                 // @noinspection PhpUndefinedMethodInspection
                 if (true === $column->isCustomDql()) {
                     /** @noinspection PhpUndefinedMethodInspection */
@@ -99,6 +100,16 @@ class DatatableFormatter
 
             /** @var ColumnInterface $column */
             foreach ($columns as $column) {
+
+//                if($column->getRowTemplate()){
+//                    dd($row,$column);
+//                }
+//                if($this->rowTemplate && $row){
+////            dd($row);
+//                    $data = $this->getTwig()->render($this->rowTemplate,array("row" => $row));
+//                }else{
+//                    $data = $this->accessor->getValue($row, $path);
+//                }
                 // 3. Add some special data to the output array. For example, the visibility of actions.
                 $column->addDataToOutputArray($row);
                 // 4. Call Columns renderContent method to format row items (e.g. for images or boolean values)

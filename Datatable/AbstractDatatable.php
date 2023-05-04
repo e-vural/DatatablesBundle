@@ -180,6 +180,17 @@ abstract class AbstractDatatable implements DatatableInterface
         $this->columnBuilder = new ColumnBuilder($metadata, $twig, $router, $this->getName(), $em);
 
         $this->ajax = new Ajax();
+        /**
+         * Set default options for ajax request.
+         * datatableName is important for multi datatble in same page. You can understand from name which datatable request
+         **/
+        $this->ajax->set(array(
+//            'pipeline' => 2,
+                "method" => "POST",
+                "data" => array("datatableName" => $this->getName())
+            )
+        );
+
         $this->options = new Options();
         $this->features = new Features();
         $this->callbacks = new Callbacks();
@@ -188,6 +199,8 @@ abstract class AbstractDatatable implements DatatableInterface
         $this->language = new Language();
 
         $this->accessor = PropertyAccess::createPropertyAccessor();
+
+
     }
 
     //-------------------------------------------------

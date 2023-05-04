@@ -131,7 +131,7 @@ class Action
     // Options
     //-------------------------------------------------
 
-    private static function resolverDefaults(){
+    public static function resolverDefaults(){
         return [
             'route' => null,
             'route_parameters' => null,

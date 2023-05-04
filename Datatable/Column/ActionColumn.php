@@ -13,7 +13,9 @@ namespace Sg\DatatablesBundle\Datatable\Column;
 
 use Closure;
 use Exception;
+use phpDocumentor\Reflection\Types\This;
 use Sg\DatatablesBundle\Datatable\Action\Action;
+use Sg\DatatablesBundle\Datatable\Filter\TextFilter;
 use Sg\DatatablesBundle\Datatable\Helper;
 use Sg\DatatablesBundle\Datatable\HtmlContainerTrait;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -174,11 +176,22 @@ class ActionColumn extends AbstractColumn
     // Options
     //-------------------------------------------------
 
+    public function resolverDefaults(){
+
+        return [
+            'actions' => Action::resolverDefaults(),
+            'start_html' => null,
+            'end_html' => null,
+        ];
+    }
+
+
     /**
      * @return $this
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+
         parent::configureOptions($resolver);
 
         $resolver->remove('dql');
@@ -198,10 +211,7 @@ class ActionColumn extends AbstractColumn
 
         $resolver->setRequired(['actions']);
 
-        $resolver->setDefaults([
-            'start_html' => null,
-            'end_html' => null,
-        ]);
+        $resolver->setDefaults(self::resolverDefaults());
 
         $resolver->setAllowedTypes('actions', 'array');
         $resolver->setAllowedTypes('start_html', ['null', 'string']);
@@ -236,7 +246,6 @@ class ActionColumn extends AbstractColumn
         } else {
             throw new Exception('ActionColumn::setActions(): The actions array should contain at least one element.');
         }
-
         return $this;
     }
 

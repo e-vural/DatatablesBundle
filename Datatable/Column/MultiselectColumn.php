@@ -121,7 +121,8 @@ class MultiselectColumn extends ActionColumn
      */
     public function allowedPositions()
     {
-        return [0, self::LAST_POSITION];
+        return null;
+        return [0, self::LAST_POSITION,3];
     }
 
     /**
@@ -194,9 +195,10 @@ class MultiselectColumn extends ActionColumn
      */
     public function addAction(array $action)
     {
+
+
         $newAction = new MultiselectAction($this->datatableName);
         $this->actions[] = $newAction->set($action);
-
         return $this;
     }
 

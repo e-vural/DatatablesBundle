@@ -50,8 +50,7 @@ trait OptionsTrait
         // @noinspection PhpUndefinedMethodInspection
         $this->accessor = PropertyAccess::createPropertyAccessorBuilder()
             ->enableMagicCall()
-            ->getPropertyAccessor()
-        ;
+            ->getPropertyAccessor();
 
         if (true === $resolve) {
             $this->set($this->options);

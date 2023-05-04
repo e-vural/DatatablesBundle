@@ -11,9 +11,9 @@ At the moment I'm working on some ideas in a sandbox ([Branch 2.0](https://githu
 
 ## Documentation
 
-[The features of v1.x](https://github.com/stwe/DatatablesBundle/blob/master/FEATURES.md)
+[The features of v1.x](https://github.com/emrevural20/DatatablesBundle/blob/master/FEATURES.md)
 
-[Documentation for v1.x](https://github.com/stwe/DatatablesBundle/blob/master/Resources/doc/index.md)
+[Documentation for v1.x](https://github.com/emrevural20/DatatablesBundle/blob/master/Resources/doc/index.md)
 
 [Demo Application for v1.x](https://github.com/stwe/DtBundleDemo10)
 

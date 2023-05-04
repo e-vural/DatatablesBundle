@@ -111,10 +111,11 @@ class ColumnBuilder
      *
      * @param string|null            $dql
      * @param ColumnInterface|string $class
-     *
-     * @throws Exception
+     * @param array $options = AbstractColumn::resolverDefaults()
      *
      * @return $this
+     *@throws Exception
+     *
      */
     public function add($dql, $class, array $options = [])
     {
@@ -132,6 +133,78 @@ class ColumnBuilder
 
         return $this;
     }
+
+
+    /**
+     * @param $dql
+     * @param array $options = Column::resolverDefaults()
+     * @return $this
+     * @throws Exception
+     */
+    public function addArrayColumn($dql,array $options = []){
+        return $this->add($dql,ArrayColumn::class,$options);
+    }
+
+    /**
+     * @param $dql
+//     * @param array $options = ["actions" =>[]]
+     * @param array $options = ActionColumn::resolverDefaults()
+     * @return $this
+     * @throws Exception
+     */
+    public function addActionColumn(array $options = []){
+        return $this->add(null,ActionColumn::class,$options);
+    }
+
+
+    /**
+     * @param $dql
+     * @param array $options = AttributeColumn::resolverDefaults()
+     * @return $this
+     * @throws Exception
+     */
+    public function addAttributeColumn($dql,array $options = []){
+        return $this->add($dql,AttributeColumn::class,$options);
+    }
+
+    public function addBooleanColumn($dql,array $options = []){
+        return $this->add($dql,BooleanColumn::class,$options);
+    }
+
+    /**
+     * @param $dql
+     * @param array $options = Column::resolverDefaults()
+     * @return $this
+     * @throws Exception
+     */
+    public function addNormalColumn($dql,array $options = []){
+        return $this->add($dql,Column::class,$options);
+    }
+
+    public function addDatetimeColumn($dql,array $options = []){
+        return $this->add($dql,DateTimeColumn::class,$options);
+    }
+
+    public function addImageColumn($dql,array $options = []){
+        return $this->add($dql,ImageColumn::class,$options);
+    }
+
+    public function addLinkColumn($dql,array $options = []){
+        return $this->add($dql,LinkColumn::class,$options);
+    }
+
+    public function addMultiselectColumn(array $options = []){
+        return $this->add(null,MultiselectColumn::class,$options);
+    }
+
+    public function addNumberColumn($dql,array $options = []){
+        return $this->add($dql,NumberColumn::class,$options);
+    }
+
+    public function addVirtualColumn($dql,array $options = []){
+        return $this->add($dql,VirtualColumn::class,$options);
+    }
+
 
     /**
      * Remove Column.
